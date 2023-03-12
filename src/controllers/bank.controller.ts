@@ -1,8 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { BankService } from '../services/bank.service';
 
 @ApiTags('Blood Bank')
+@ApiBearerAuth()
 @Controller()
 export class BankController {
     constructor(private readonly bankService: BankService) { }
