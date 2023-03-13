@@ -4,10 +4,11 @@ import {
     Get,
     HttpStatus,
     Post,
+    Req,
     Res
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Response } from 'express';
+import { ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { response, Response } from 'express';
 import { EnfermeiroDto } from '../Models/Dtos/EnfermeiroDto';
 import { AuthService } from '../services/auth.service';
 
@@ -30,8 +31,14 @@ export class AuthController {
         return this.authService.getTokenBearer(enfermeiro, resp);
     }
 
+
+    @ApiHeader({
+        name: 'Auth',
+        description: 'Insert your token here',
+        required: true
+    })
     @Get('validation')
-    validateToken(): string {
-        return this.authService.getHello();
+    validateToken(@Req() req: Request, @Res() resp: Response){
+        return this.authService.validateToken(req, resp);
     }
 }
