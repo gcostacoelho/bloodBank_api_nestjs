@@ -18,7 +18,7 @@ model Banco {
 model Doador{
   id String @id @default(uuid())
   nome String
-  cpf String
+  cpf String @unique
   tipoSangue String
   dataNascimento DateTime
 }
