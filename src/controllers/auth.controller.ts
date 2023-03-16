@@ -30,8 +30,7 @@ export class AuthController {
     getTokenBearer(@Body() enfermeiro: EnfermeiroDto, @Res() resp: Response) {
         return this.authService.getTokenBearer(enfermeiro, resp);
     }
-
-
+    
     @ApiHeader({
         name: 'Auth',
         description: 'Insert your token here',
