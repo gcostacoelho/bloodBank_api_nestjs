@@ -1,6 +1,7 @@
 export interface crudPrisma {
-    Create()
+    Create(data: Object)
     Read()
-    Update()
-    Delete()
+    Update(data: Object, id: string)
+    Delete(id: string)
+    GetPerID(id: string)
 }
