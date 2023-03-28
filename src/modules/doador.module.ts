@@ -6,5 +6,6 @@ import { PrismaConfig } from '../database/prismaConfig';
 @Module({
     controllers: [DoadorController],
     providers: [DoadorService, PrismaConfig],
+    exports: [DoadorService]
 })
 export class DoadorModule { }

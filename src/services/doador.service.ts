@@ -3,7 +3,6 @@ import { DoadorDto } from '../Models/Dtos/DoadorDto';
 import { PrismaConfig } from '../database/prismaConfig';
 import { crudPrisma } from '../interfaces/crud.interface';
 import { Doador } from '@prisma/client';
-import { copyFile } from 'fs';
 
 @Injectable()
 export class DoadorService implements crudPrisma {
