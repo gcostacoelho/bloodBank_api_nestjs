@@ -9,11 +9,17 @@ export class DoadorService implements crudPrisma {
 	constructor(private readonly prisma: PrismaConfig) { }
 	
 	async GetPerID(id: string) {
-		return await this.prisma.doador.findUnique({
+		const doador = await this.prisma.doador.findUnique({
 			where: {
 				cpf: id
 			}
 		})
+
+		if (doador) {
+			return doador	
+		}
+
+		return null
 	}
 
 	async Create(data: DoadorDto): Promise<Doador> {

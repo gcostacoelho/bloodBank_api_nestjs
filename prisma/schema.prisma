@@ -12,7 +12,7 @@ datasource db {
 
 model Banco {
   tipoSangue String @id
-  qtdSangue String
+  qtdSangue Decimal
 }
 
 model Doador{
