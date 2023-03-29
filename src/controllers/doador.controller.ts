@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Res } from '@nestjs/common';
 import { ApiBearerAuth, ApiProperty, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
 import { Doador } from '@prisma/client';
-import { DoadorDto } from 'src/Models/Dtos/DoadorDto';
+import { DoadorDto } from '../Models/Dtos/DoadorDto';
 import { DoadorService } from '../services/doador.service';
 
 @ApiTags('Doador')
@@ -10,27 +11,38 @@ export class DoadorController {
     constructor(private readonly doadorService: DoadorService) { }
 
     @Get()
-    getDoadores(): Promise<Doador[]> {
-        return this.doadorService.Read();
+    async getDoadores(@Res() resp: Response) {
+        const data = await this.doadorService.Read();
+
+        return resp.status(data.statusCode).json(data.body)
+
     }
 
     @Get(':cpf')
-    getDoadorPerId(@Param('cpf') id: string): Promise<Doador> {
-        return this.doadorService.GetPerID(id);
+    async getDoadorPerId(@Param('cpf') id: string, @Res() resp: Response) {
+        const data = await this.doadorService.GetPerID(id);
+
+        return resp.status(data.statusCode).json(data.body)
     }
 
     @Post()
-    createDoador(@Body() doador: DoadorDto): Promise<Doador> {
-        return this.doadorService.Create(doador);
+    async createDoador(@Body() doador: DoadorDto, @Res() resp: Response) {
+        const data = await this.doadorService.Create(doador);
+
+        return resp.status(data.statusCode).json(data.body)
     }
 
     @Put(':cpf')
-    putDoador(@Body() doador: DoadorDto, @Param('cpf') id: string): Promise<Doador> {
-        return this.doadorService.Update(doador, id);
+    async putDoador(@Body() doador: DoadorDto, @Param('cpf') id: string, @Res() resp: Response) {
+        const data = await this.doadorService.Update(doador, id);
+
+        return resp.status(data.statusCode).json(data.body)
     }
 
     @Delete(':cpf')
-    deleteDoador(@Param('cpf') id: string): Promise<Doador> {
-        return this.doadorService.Delete(id)
+    async deleteDoador(@Param('cpf') id: string, @Res() resp: Response) {
+        const data = await this.doadorService.Delete(id);
+
+        return resp.status(data.statusCode).json(data.body)
     }
 }

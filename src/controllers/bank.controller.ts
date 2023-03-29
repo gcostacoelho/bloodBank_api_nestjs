@@ -1,7 +1,15 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    Param,
+    Post,
+    Put,
+    Res
+} from '@nestjs/common';
+import { Response } from 'express';
 import { ApiTags } from '@nestjs/swagger';
-import { BankDto } from 'src/Models/Dtos/BankDto';
-import { HttpResponse } from 'types/http';
+import { BankDto } from '../Models/Dtos/BankDto';
 import { BankService } from '../services/bank.service';
 
 @ApiTags('Blood Bank')
@@ -10,23 +18,31 @@ export class BankController {
     constructor(private readonly bankService: BankService) { }
 
     @Get()
-    getDataBank(): Promise<HttpResponse>{
-        return this.bankService.Read();
+    async getDataBank(@Res() resp: Response){
+        const data = await this.bankService.Read();
+
+        return resp.status(data.statusCode).json(data.body);
     }
 
     @Get(':tipoSangue')
-    getQtdSangue(@Param('tipoSangue') sangue: string): Promise<HttpResponse>{
-        return this.bankService.GetPerID(sangue);
+    async getQtdSangue(@Param('tipoSangue') sangue: string, @Res() resp: Response) {
+        const data = await this.bankService.GetPerID(sangue);
+
+        return resp.status(data.statusCode).json(data.body)
     }
 
     @Post()
-    addBanco(@Body() body: BankDto): Promise<HttpResponse>{
-        return this.bankService.Create(body);
+    async addBanco(@Body() body: BankDto, @Res() resp: Response) {
+        const data = await this.bankService.Create(body);
+
+        return resp.status(data.statusCode).json(data.body);
     }
 
     @Put(':tipoSangue/:qtdSangue')
-    putBanco(@Param('tipoSangue') sangue: string, @Param('qtdSangue') qtdSangue: number): Promise<HttpResponse>{        
-        return this.bankService.Update(qtdSangue, sangue);
+    async putBanco(@Param('tipoSangue') sangue: string, @Param('qtdSangue') qtdSangue: number, @Res() resp: Response) {
+        const data = await this.bankService.Update(qtdSangue, sangue);
+
+        return resp.status(data.statusCode).json(data.body);
     }
 
 }

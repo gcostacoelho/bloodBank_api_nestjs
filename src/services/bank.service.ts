@@ -11,13 +11,17 @@ export class BankService {
 	private readonly doadorService: DoadorService;
 
 	async GetPerID(id: string): Promise<HttpResponse> {
-		return success(
-			await this.prisma.banco.findUnique({
-				where: {
-					tipoSangue: `${id.toLowerCase()}`
-				}
-			})
-		);
+		const body = await this.prisma.banco.findUnique({
+			where: {
+				tipoSangue: `${id.toLowerCase()}`
+			}
+		});
+
+		if(body == null){
+			return notFound('Tipo de sangue não encontrado')
+		}
+		
+		return success(body);
 	}
 
 	async Create(body): Promise<HttpResponse> {
@@ -29,7 +33,7 @@ export class BankService {
 		}
 
 		const data = {
-			tipoSangue: doador.tipoSangue,
+			tipoSangue: doador.body.tipoSangue,
 			qtdSangue: body.qtdDoado
 		}
 
@@ -41,12 +45,18 @@ export class BankService {
 	}
 
 	async Read(): Promise<HttpResponse> {
-		return success(
-			await this.prisma.banco.findMany()
-		);
+		const bank = await this.prisma.banco.findMany()
+
+		return success(bank);
 	}
 
 	async Update(qtdSangue: number, id: string): Promise<HttpResponse> {
+		const bloodExists = await this.GetPerID(id);
+
+		if(bloodExists.statusCode == 404){
+			return notFound(bloodExists.body);
+		}
+
 		const body = await this.prisma.banco.update({
 			where: {
 				tipoSangue: `${id.toLowerCase()}`
