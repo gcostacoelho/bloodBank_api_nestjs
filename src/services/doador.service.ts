@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { DoadorDto } from '../Models/Dtos/DoadorDto';
 import { PrismaConfig } from '../database/prismaConfig';
 import { crudPrisma } from '../interfaces/crud.interface';
-import { Doador } from '@prisma/client';
 import { created, HttpResponse, notFound, success } from 'types/http';
 
 @Injectable()
