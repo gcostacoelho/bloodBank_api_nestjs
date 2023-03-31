@@ -8,7 +8,7 @@ import {
     Res
 } from '@nestjs/common';
 import { ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { response, Response } from 'express';
+import { Response } from 'express';
 import { EnfermeiroDto } from '../Models/Dtos/EnfermeiroDto';
 import { AuthService } from '../services/auth.service';
 
@@ -27,8 +27,8 @@ export class AuthController {
         description: "Erro de validação dos dados pedidos"
     })
 
-    getTokenBearer(@Body() enfermeiro: EnfermeiroDto, @Res() resp: Response) {
-        return this.authService.getTokenBearer(enfermeiro, resp);
+    getTokenBearer(@Res() resp: Response) {
+        return this.authService.getTokenBearer(resp);
     }
     
     @ApiHeader({

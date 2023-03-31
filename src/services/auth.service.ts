@@ -5,7 +5,7 @@ import * as dotenv from 'dotenv';
 @Injectable()
 export class AuthService {
 
-	getTokenBearer(req, resp): Object {
+	getTokenBearer(resp): Object {
 		dotenv.config();
 		const token = jwt.sign({ expiresIn: "300" }, process.env.SECRET);
 
