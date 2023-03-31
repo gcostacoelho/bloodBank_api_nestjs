@@ -8,10 +8,11 @@ import {
     Res
 } from '@nestjs/common';
 import { Response } from 'express';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { BankDto } from '../Models/Dtos/BankDto';
 import { BankService } from '../services/bank.service';
 
+@ApiBearerAuth()
 @ApiTags('Blood Bank')
 @Controller('bank')
 export class BankController {

@@ -1,10 +1,20 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Res } from '@nestjs/common';
-import { ApiBearerAuth, ApiProperty, ApiTags } from '@nestjs/swagger';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Param,
+    Post,
+    Put,
+    Res
+} from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
-import { Doador } from '@prisma/client';
 import { DoadorDto } from '../Models/Dtos/DoadorDto';
 import { DoadorService } from '../services/doador.service';
 
+
+@ApiBearerAuth()
 @ApiTags('Doador')
 @Controller('doador')
 export class DoadorController {

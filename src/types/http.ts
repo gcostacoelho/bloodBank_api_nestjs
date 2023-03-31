@@ -13,7 +13,7 @@ export const created = (data: any): HttpResponse => ({
     body: data,
 });
 
-export const badRequest = (errorMessage: string): HttpResponse => ({
+export const badRequest = (errorMessage: any): HttpResponse => ({
     statusCode: 400,
     body: errorMessage,
 });
@@ -23,7 +23,7 @@ export const unauthorized = (): HttpResponse => ({
     body: 'Unauthorized',
 });
 
-export const notFound = (errorMessage: string): HttpResponse => ({
+export const notFound = (errorMessage: any): HttpResponse => ({
     statusCode: 404,
     body: errorMessage,
 });

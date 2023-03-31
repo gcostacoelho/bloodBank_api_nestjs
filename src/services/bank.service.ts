@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { PrismaConfig } from 'src/database/prismaConfig';
 import { DoadorService } from './doador.service';
-import { created, HttpResponse, notFound, success } from 'types/http';
+import { created, HttpResponse, notFound, success } from 'src/types/http';
 
 @Injectable()
 export class BankService {
